@@ -7,9 +7,13 @@ output: github_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
 ```
 #Problem 1
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
 
 Here's a **code chunk** that samples from 
 a _uniform distribution_:
@@ -26,19 +30,15 @@ A (length-10) character vector
 A (length-10) factor vector
 
 ```{r vectors}
-example_df = tibble(
-  vector_logical = c(sample > 2),
-  vector_char = c(length(10)),
-  vector_factor = factor(10)
-)
-
-class(example_df$vec_logical)
-class(example_df$vec_char)
-class(example_df$vec_factor)
+vec_logical = sample > 2
+vec_char = character(length = 10 )
+vec_factor = factor(10)
 ```
-For each vector, get the means:
-Here is the mean for logical vector: `r mean(vec_logical)`
-Here is the mean for character vector: `r mean(vec_char)`
-Here is the mean for factor vector: `r mean(vec_factor)`
 
+
+```{r convert}
+convert_veclog = as.numeric(vec_logical)
+convert_vecchar = as.numeric(vec_char)
+convert_vecfact = as.numeric(vec_factor)
+```
 
