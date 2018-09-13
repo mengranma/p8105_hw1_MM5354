@@ -1,0 +1,44 @@
+---
+title: "p8105_hw1_mm5354"
+author: "Mengran Ma"
+date: "2018/9/13"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+#Problem 1
+
+Here's a **code chunk** that samples from 
+a _uniform distribution_:
+
+```{r uniform_sample}
+sample = runif(10, min=0, max=5)
+```
+I can take the mean of the sample, too!
+The mean is `r mean(sample)`.
+
+Next, creating the following required vectors:
+A logical vector indicating whether elements of the sample are greater than 2
+A (length-10) character vector
+A (length-10) factor vector
+
+```{r vectors}
+example_df = tibble(
+  vector_logical = c(sample > 2),
+  vector_char = c(length(10)),
+  vector_factor = factor(10)
+)
+
+class(example_df$vec_logical)
+class(example_df$vec_char)
+class(example_df$vec_factor)
+```
+For each vector, get the means:
+Here is the mean for logical vector: `r mean(vec_logical)`
+Here is the mean for character vector: `r mean(vec_char)`
+Here is the mean for factor vector: `r mean(vec_factor)`
+
+
