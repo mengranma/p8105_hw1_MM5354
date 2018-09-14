@@ -119,6 +119,12 @@ table(veclogical_checkxy) ["TRUE"]
 ```
 
 ```{r scatter_plot}
-ggplot(plot_df, aes(x = x, y = y),col="green") + geom_point()
+ggplot(plot_df, aes(x = x, y = y,color = TRUE)) + geom_point()
+```
+```{r scatter_plot2}
+ggplot(plot_df, aes(x = x, y = c(facvec_checkxy),color = TRUE)) + geom_point()
 ```
 
+```{r scatter_plot3}
+ggplot(plot_df, aes(x = x, y = c(numvec_checkxy),color = TRUE)) + geom_point()
+```
