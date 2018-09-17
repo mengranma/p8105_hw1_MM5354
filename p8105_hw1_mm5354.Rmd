@@ -5,12 +5,12 @@ date: "2018/9/13"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 #Problem 1
 
-```{r include=FALSE}
+```{r include = FALSE}
 library(tidyverse)
 ```
 
@@ -19,7 +19,7 @@ Here's a **code chunk** that samples from
 a _uniform distribution_:
 
 ```{r uniform_sample}
-sample = runif(10, min=0, max=5)
+sample = runif(10, min = 0, max = 5)
 ```
 I can take the mean of the sample, too!
 The mean is `r mean(sample)`.
@@ -52,7 +52,8 @@ convert_vecfact = as.numeric(vec_factor)
 
 What happens?
 
-My answer is: "NA" occurs in these processes.
+My answer is: Logical, and factor variables can be converted to numeric vectors, while in contrast, character variable/vector can not be converted to numeric vector. "NA" occurs in this converting character to numeric process.
+
 
 In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. 
 
@@ -67,30 +68,24 @@ numconvert_vecfac = as.numeric(charconvert_vecfac)
 
 What happens?
 
-My answer is: "NA" occurs in these processes.
+My answer is: Character variable to factor to numeric can be converted/proceed successfully; However, converting factor variable to character to numeric did not work well comparing to the process above, since "NA" appears in this process when checking the numeric results.
 
 
 #Problem 2
 
 Create a data frame comprised of:
 x: a random sample of size 1000 from a standard Normal distribution
-
-
 ```{r generating_x}
-set.seed(1234)
+set.seed(2)
 
-## define data frame containing x and y
-plot_df = tibble(
-  x = rnorm(1000, sd = 1),
-  y = rnorm(1000, sd = 1)
-)
+x = rnorm(1000, sd = 1)
 
 
 ```
 y: a random sample of size 1000 from a standard Normal distribution
 ```{r generating_y}
-set.seed(1234)
-x = rnorm(1000, sd = 1)
+set.seed(2)
+
 y = rnorm(1000, sd = 1)
 ```
 A logical vector indicating whether the x + y > 0
@@ -110,21 +105,32 @@ facvec_checkxy = as.factor(veclogical_checkxy)
 ```
 
 I can take the size, mean, median of x, too!
-The size of x is `r table(veclogical_checkxy)`
-The mean is `r mean(x)`
-The median is `r median(x)`
 
-```{r proportion_true}
-table(veclogical_checkxy) ["TRUE"]
-```
+* The size of the dataset is `r table(veclogical_checkxy)`.
 
+* The mean of x is `r mean(x)`.
+
+* The median of x is `r median(x)`.
+
+* The proportion of cases for which the logical vector is TRUE equals to `r table(veclogical_checkxy) ["TRUE"]`.
+
+
+
+Make a scatterplot of y vs x
 ```{r scatter_plot}
-ggplot(plot_df, aes(x = x, y = y,color = TRUE)) + geom_point()
+set.seed(2)
+
+## define data frame containing x and y
+plot_df = tibble(
+  x = rnorm(1000, sd = 1),
+  y = rnorm(1000, sd = 1)
+)
+ggplot(plot_df, aes(x = x, y = y)) + geom_point()
 ```
 ```{r scatter_plot2}
-ggplot(plot_df, aes(x = x, y = c(facvec_checkxy),color = TRUE)) + geom_point()
+ggplot(plot_df, aes(x = x, y = c(facvec_checkxy),color = 'pink')) + geom_point()
 ```
 
 ```{r scatter_plot3}
-ggplot(plot_df, aes(x = x, y = c(numvec_checkxy),color = TRUE)) + geom_point()
+ggplot(plot_df, aes(x = x, y = c(numvec_checkxy),color = 'blue')) + geom_point()
 ```
