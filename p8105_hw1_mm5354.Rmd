@@ -104,7 +104,6 @@ A factor vector created by coercing the above logical vector
 facvec_checkxy = as.factor(veclogical_checkxy)
 ```
 
-I can take the size, mean, median of x, too!
 
 * The size of the dataset is `r table(veclogical_checkxy)`.
 
