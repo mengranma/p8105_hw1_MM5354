@@ -23,6 +23,7 @@ Next, creating the following required vectors:
 4. A (length-10) factor vector
 
 ```{r vectors}
+set.seed(1)
 problem1_df = tibble(
   sample = runif(10, min = 0, max = 5),
   vec_logical = sample > 2,
@@ -49,6 +50,7 @@ mean(problem1_df$vec_factor)
 
 ```
 From the above, I tried to take the mean of each variable in my dataframe. What works and what doesn’t? My answer to this question: Only for numeric and logical vectors, we can obtain means using "mean()" this function, but not for character and factor vectors. Note that logical vectors use "1" to denote TRUE, and "0" to denote FALSE, therefore can produce mean value.
+
 
 Write a code chunk that applies the as.numeric function to the logical, character, and factor variables
 ```{r as_numeric, eval = FALSE}
@@ -116,11 +118,15 @@ Make a scatterplot of y vs x
 ```{r scatter_plot}
 
 ggplot(problem2_df, aes(x = x, y = y, color = veclogical_checkxy)) + geom_point()
+ggsave("scatter_plot.pdf")
 ```
+
+Make a second scatterplot that color points using the numeric variable.
 ```{r scatter_plot2}
 ggplot(problem2_df, aes(x = x, y = y, color = facvec_checkxy)) + geom_point()
 ```
 
+Make a third scatterplot that color points using the factor variable.
 ```{r scatter_plot3}
 ggplot(problem2_df, aes(x = x, y = y, color = numvec_checkxy)) + geom_point()
 ```
