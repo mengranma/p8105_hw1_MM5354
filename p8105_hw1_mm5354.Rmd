@@ -62,6 +62,8 @@ What happens?
 My answer is: Logical, and factor variables can be converted to numeric vectors, while in contrast, character variable/vector can not be converted to numeric vector. "NA" occurs in this converting character to numeric process.
 
 
+
+
 In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. 
 
 ```{r convertions}
@@ -74,7 +76,6 @@ charconvert_vecfac = as.character(problem1_df$vec_factor)
 numconvert_vecfac = as.numeric(charconvert_vecfac)
 ```
 
-
 What happens?
 
 My answer is: Character variable to factor to numeric can be converted/proceed successfully; However, converting factor variable to character to numeric did not work well comparing to the process above, since "NA" appears in this process when checking the numeric results.
@@ -83,11 +84,12 @@ My answer is: Character variable to factor to numeric can be converted/proceed s
 #Problem 2
 
 Create a data frame comprised of:
-x: a random sample of size 1000 from a standard Normal distribution
-y: a random sample of size 1000 from a standard Normal distribution
-A logical vector indicating whether the x + y > 0
-A numeric vector created by coercing the above logical vector
-A factor vector created by coercing the above logical vector
+1. x: a random sample of size 1000 from a standard Normal distribution
+2. y: a random sample of size 1000 from a standard Normal distribution
+3. A logical vector indicating whether the x + y > 0
+4. A numeric vector created by coercing the above logical vector
+5. A factor vector created by coercing the above logical vector
+
 ```{r generating_vectors}
 set.seed(2)
 problem2_df = tibble(
@@ -100,13 +102,13 @@ problem2_df = tibble(
 ```
 
 
-* The size of the dataset is `r table(problem2_df)`.
+* The size of the dataset is `r nrow(problem2_df)` rows and `r ncol(problem2_df)` columns.
 
 * The mean of x is `r mean(problem2_df$x)`.
 
 * The median of x is `r median(problem2_df$x)`.
 
-* The proportion of cases for which the logical vector is TRUE equals to `r table(problem2_df$veclogical_checkxy) ["TRUE"]`.
+* The proportion of cases for which the logical vector is TRUE equals to `r table(problem2_df$veclogical_checkxy) ["TRUE"]/length(problem2_df$veclogical_checkxy)`.
 
 
 
@@ -116,9 +118,9 @@ Make a scatterplot of y vs x
 ggplot(problem2_df, aes(x = x, y = y, color = veclogical_checkxy)) + geom_point()
 ```
 ```{r scatter_plot2}
-ggplot(problem2_df, aes(x = x, y = y,color = facvec_checkxy)) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y, color = facvec_checkxy)) + geom_point()
 ```
 
 ```{r scatter_plot3}
-ggplot(problem2_df, aes(x = x, y = y,color = numvec_checkxy)) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y, color = numvec_checkxy)) + geom_point()
 ```
