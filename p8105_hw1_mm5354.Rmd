@@ -15,39 +15,46 @@ library(tidyverse)
 ```
 
 
-Here's a **code chunk** that samples from 
-a _uniform distribution_:
-
-```{r uniform_sample}
-sample = runif(10, min = 0, max = 5)
-```
-I can take the mean of the sample, too!
-The mean is `r mean(sample)`.
 
 Next, creating the following required vectors:
-1. A logical vector indicating whether elements of the sample are greater than 2
-2. A (length-10) character vector
-3. A (length-10) factor vector
+1. A random sample of size 10 from a uniform[0, 5] distribution
+2. A logical vector indicating whether elements of the sample are greater than 2
+3. A (length-10) character vector
+4. A (length-10) factor vector
 
 ```{r vectors}
-vec_logical = sample > 2
-vec_char = c("Kao","Shi","Xin","Chun","Ge","Yong","Yuan","Bu","Gua","Ke")
-vec_factor = factor(c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"))
+problem1_df = tibble(
+  sample = runif(10, min = 0, max = 5),
+  vec_logical = sample > 2,
+  vec_char = c("Kao","Shi","Xin","Chun","Ge","Yong","Yuan","Bu","Gua","Ke"),
+  vec_factor = factor(c("a", "b", "c", "d", "e", "f", "g", "h", "i", "j"))
+)
 ```
 
 
 For each vector, get the means:
-Here is the mean for logical vector: `r mean(vec_logical)`
 
-Here is the mean for character vector: `r mean(vec_char)`
+```{r get_means}
+#Here is the mean of the sample
+mean(problem1_df$sample)
 
-Here is the mean for factor vector: `r mean(vec_factor)`
+#Here is the mean for logical vector
+mean(problem1_df$vec_logical)
+
+#Here is the mean for character vector
+mean(problem1_df$vec_char)
+
+#Here is the mean for factor vector
+mean(problem1_df$vec_factor)
+
+```
+From the above, I tried to take the mean of each variable in my dataframe. What works and what doesn’t? My answer to this question: Only for numeric and logical vectors, we can obtain means using "mean()" this function, but not for character and factor vectors. Note that logical vectors use "1" to denote TRUE, and "0" to denote FALSE, therefore can produce mean value.
 
 Write a code chunk that applies the as.numeric function to the logical, character, and factor variables
-```{r as_numeric}
-convert_veclog = as.numeric(vec_logical)
-convert_vecchar = as.numeric(vec_char)
-convert_vecfact = as.numeric(vec_factor)
+```{r as_numeric, eval = FALSE}
+convert_veclog = as.numeric(problem1_df$vec_logical)
+convert_vecchar = as.numeric(problem1_df$vec_char)
+convert_vecfact = as.numeric(problem1_df$vec_factor)
 ```
 
 What happens?
@@ -58,10 +65,12 @@ My answer is: Logical, and factor variables can be converted to numeric vectors,
 In a second code chunk, convert your character variable from character to factor to numeric; similarly, convert your factor variable from factor to character to numeric. 
 
 ```{r convertions}
-facconvert_vecchar = as.factor(vec_char)
+#convert your character variable from character to factor to numeric
+facconvert_vecchar = as.factor(problem1_df$vec_char)
 numconvert_vecchar = as.numeric(facconvert_vecchar)
 
-charconvert_vecfac = as.character(vec_factor)
+#convert your factor variable from factor to character to numeric
+charconvert_vecfac = as.character(problem1_df$vec_factor)
 numconvert_vecfac = as.numeric(charconvert_vecfac)
 ```
 
@@ -75,61 +84,41 @@ My answer is: Character variable to factor to numeric can be converted/proceed s
 
 Create a data frame comprised of:
 x: a random sample of size 1000 from a standard Normal distribution
-```{r generating_x}
-set.seed(2)
-
-x = rnorm(1000, sd = 1)
-
-
-```
 y: a random sample of size 1000 from a standard Normal distribution
-```{r generating_y}
-set.seed(2)
-
-y = rnorm(1000, sd = 1)
-```
 A logical vector indicating whether the x + y > 0
-```{r checking_xy}
-veclogical_checkxy = x + y > 0
-```
-
-
 A numeric vector created by coercing the above logical vector
-```{r numvec_convert_logvec}
-numvec_checkxy = as.numeric(veclogical_checkxy)
-```
-
 A factor vector created by coercing the above logical vector
-```{r facvec_convert_logvec}
-facvec_checkxy = as.factor(veclogical_checkxy)
+```{r generating_vectors}
+set.seed(2)
+problem2_df = tibble(
+  x = rnorm(1000, sd = 1),
+  y = rnorm(1000, sd = 1),
+  veclogical_checkxy = x + y > 0,
+  numvec_checkxy = as.numeric(veclogical_checkxy),
+  facvec_checkxy = as.factor(veclogical_checkxy)
+)
 ```
 
 
-* The size of the dataset is `r table(veclogical_checkxy)`.
+* The size of the dataset is `r table(problem2_df)`.
 
-* The mean of x is `r mean(x)`.
+* The mean of x is `r mean(problem2_df$x)`.
 
-* The median of x is `r median(x)`.
+* The median of x is `r median(problem2_df$x)`.
 
-* The proportion of cases for which the logical vector is TRUE equals to `r table(veclogical_checkxy) ["TRUE"]`.
+* The proportion of cases for which the logical vector is TRUE equals to `r table(problem2_df$veclogical_checkxy) ["TRUE"]`.
 
 
 
 Make a scatterplot of y vs x
 ```{r scatter_plot}
-set.seed(2)
 
-## define data frame containing x and y
-plot_df = tibble(
-  x = rnorm(1000, sd = 1),
-  y = rnorm(1000, sd = 1)
-)
-ggplot(plot_df, aes(x = x, y = y)) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y, color = veclogical_checkxy)) + geom_point()
 ```
 ```{r scatter_plot2}
-ggplot(plot_df, aes(x = x, y = c(facvec_checkxy),color = 'pink')) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y,color = facvec_checkxy)) + geom_point()
 ```
 
 ```{r scatter_plot3}
-ggplot(plot_df, aes(x = x, y = c(numvec_checkxy),color = 'blue')) + geom_point()
+ggplot(problem2_df, aes(x = x, y = y,color = numvec_checkxy)) + geom_point()
 ```
