@@ -15,8 +15,7 @@ library(tidyverse)
 ```
 
 
-
-Next, creating the following required vectors:
+Creating the following required vectors:
 1. A random sample of size 10 from a uniform[0, 5] distribution
 2. A logical vector indicating whether elements of the sample are greater than 2
 3. A (length-10) character vector
